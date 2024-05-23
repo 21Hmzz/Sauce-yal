@@ -1,4 +1,4 @@
 ### Créez une branche pour chaque partie du projet
 
 - [x] Créer une branche `frontend` pour la partie frontend
-- [x] Créer une branche `backend` pour la partie backend
+- [] Créer une branche `backend` pour la partie backend
