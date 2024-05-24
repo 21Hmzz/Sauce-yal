@@ -7,6 +7,8 @@ import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Image from "next/image";
+import { Separator } from "@/components/ui/separator";
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function Sidebar({ className }: SidebarProps) {
@@ -15,6 +17,14 @@ export function Sidebar({ className }: SidebarProps) {
     <div className={cn("pb-12 relative", className)}>
       <div className="space-y-4 py-4">
         <div className="px-3 py-2">
+          <Image
+            src="/logo.webp"
+            width={100}
+            height={100}
+            alt="logo"
+            className="mx-auto rounded-lg"
+          />
+          <Separator className="my-4" />
           <div className="space-y-1">
             <div className="flex items-center justify-center p-4">
               <Avatar>

@@ -4,13 +4,20 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useRouter } from "next/navigation";
-import { Card, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
+import { Flame, Lollipop, Popcorn } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 function randomNumber(min: number, max: number) {
   return Math.random() * (max - min) + min;
 }
 
-function PostList() {
+function PostList({ selected }: { selected: string }) {
   const router = useRouter();
   const queryClient = useQueryClient();
   const PostQuery = useQuery({
@@ -36,7 +43,7 @@ function PostList() {
     console.error(PostQuery.error);
   }
   return (
-    <div className="w-full overflow-y-auto p-4">
+    <div className={"w-full overflow-y-auto py-2"}>
       {PostQuery.isLoading && (
         <div role="status">
           <svg
@@ -59,14 +66,39 @@ function PostList() {
         </div>
       )}
       {Array.isArray(PostQuery.data) && PostQuery.data && (
-        <div className="grid gap-4">
+        <div className={"grid gap-4 "}>
           {PostQuery.data.map((post: any) => (
             <Card
               onClick={() => router.push(`/posts/${post.id}`)}
               key={post.id}
-              className="p-4 bg-slate-50 rounded-lg flex flex-col cursor-pointer hover:bg-slate-300 transition-colors"
+              className={
+                "p-4 bg-slate-50 rounded-lg flex flex-col cursor-pointer hover:bg-slate-300 transition-colors relative " +
+                (selected === "spicy"
+                  ? "border-red-500 border-4"
+                  : selected === "salty"
+                  ? "border-blue-500 border-4"
+                  : selected === "sweet"
+                  ? "border-yellow-500 border-4"
+                  : "")
+              }
             >
-              <CardHeader className="flex flex-row gap-2 p-2">
+              {selected === "spicy" && (
+                <span className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-lg">
+                  <Flame className="h-4 w-4" />
+                </span>
+              )}
+              {selected === "salty" && (
+                <span className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded-lg">
+                  <Popcorn className="h-4 w-4" />
+                </span>
+              )}
+              {selected === "sweet" && (
+                <span className="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-lg">
+                  <Lollipop className="h-4 w-4" />
+                </span>
+              )}
+
+              <CardHeader className="flex flex-row gap-2 ">
                 <Avatar>
                   <AvatarImage
                     src={`https://i.pravatar.cc/150?u=${randomNumber(1, 50)}`}
@@ -85,12 +117,35 @@ function PostList() {
                     : "Chargement..."}
                 </span>
               </CardHeader>
+              <CardContent>
+                <div className="flex flex-col gap-2">
+                  <h1 className="text-lg font-bold capitalize">{post.title}</h1>
 
-              <div className="flex flex-col gap-2">
-                <h1 className="text-lg font-bold capitalize">{post.title}</h1>
-
-                <p className="text-sm">{post.body}</p>
-              </div>
+                  <p className="text-sm">{post.body}</p>
+                </div>
+              </CardContent>
+              <CardFooter className="relative">
+                <div className="flex flex-row gap-2">
+                  <Button variant="outline" className="flex items-center gap-1">
+                    🌶️
+                    <Badge variant="outline">
+                      {randomNumber(1, 50).toFixed(0)}
+                    </Badge>
+                  </Button>
+                  <Button variant="outline" className="flex items-center gap-1">
+                    🍿
+                    <Badge variant="outline">
+                      {randomNumber(1, 50).toFixed(0)}
+                    </Badge>
+                  </Button>
+                  <Button variant="outline" className="flex items-center gap-1">
+                    🍭
+                    <Badge variant="outline">
+                      {randomNumber(1, 50).toFixed(0)}
+                    </Badge>
+                  </Button>
+                </div>
+              </CardFooter>
             </Card>
           ))}
         </div>
