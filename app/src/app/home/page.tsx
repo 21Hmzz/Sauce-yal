@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import PostList from "../components/postList";
 import UserList from "../components/userList";
@@ -9,21 +10,22 @@ import LastActivity from "../components/LastActivity";
 import FilterHome from "../components/FilterHome";
 
 function Home() {
+  const [selected, setSelected] = React.useState<string>("");
   return (
     <main className="w-full h-screen flex">
-      <div className="w-3/5 h-full flex flex-col p-4 ">
+      <div className="w-3/5 h-full flex flex-col p-4">
         <div className="flex w-full items-center flex-col gap-4 h-full overflow-y-auto">
           <div className="w-full">
             <AddPostHome />
           </div>
           {/* <SearchComponent /> */}
           <Separator />
-          <div className="w-full">
-            <div className="flex justify-end items-center gap-4 px-4">
+          <div className={"w-full  "}>
+            <div className="flex justify-between items-center gap-4 ">
               {/* icone filtres */}
-              <FilterHome />
+              <FilterHome selected={selected} setSelected={setSelected} />
             </div>
-            <PostList />
+            <PostList selected={selected} />
           </div>
         </div>
       </div>
