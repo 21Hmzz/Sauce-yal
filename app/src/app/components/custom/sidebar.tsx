@@ -6,6 +6,7 @@ import { Bug, Home, KeyRound, MessageCircle, UserCog } from "lucide-react";
 import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function Sidebar({ className }: SidebarProps) {
@@ -15,6 +16,16 @@ export function Sidebar({ className }: SidebarProps) {
       <div className="space-y-4 py-4">
         <div className="px-3 py-2">
           <div className="space-y-1">
+            <div className="flex items-center justify-center p-4">
+              <Avatar>
+                <AvatarImage src="https://i.pravatar.cc/300" />
+                <AvatarFallback>JD</AvatarFallback>
+              </Avatar>
+              <div className="ml-2">
+                <h2 className="text-lg font-semibold">John Doe</h2>
+                <p className="text-muted-foreground">Développeur web</p>
+              </div>
+            </div>
             <Button
               variant={pathname === "/home" ? "secondary" : "ghost"}
               className="w-full justify-start"

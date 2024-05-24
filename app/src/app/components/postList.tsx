@@ -69,7 +69,7 @@ function PostList() {
               <CardHeader className="flex flex-row gap-2 p-2">
                 <Avatar>
                   <AvatarImage
-                    src={`httdps://i.pravatar.cc/150?u=${randomNumber(1, 50)}`}
+                    src={`https://i.pravatar.cc/150?u=${randomNumber(1, 50)}`}
                   />
                   <AvatarFallback>
                     {post.title.charAt(0).toUpperCase()}

@@ -26,7 +26,7 @@ function UserList() {
   }
   return (
     <div className="w-full h-1/2 overflow-y-auto p-4">
-      <h1 className="text-xl  text-center p-4 ">À suivre</h1>
+      <h1 className="text-sm  text-center p-4 ">À suivre</h1>
       {usersQuery.isLoading && (
         <div role="status">
           <svg

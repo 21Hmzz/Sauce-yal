@@ -3,23 +3,34 @@ import PostList from "../components/postList";
 import UserList from "../components/userList";
 import SearchComponent from "./search";
 import { SlidersHorizontal } from "lucide-react";
+import AddPostHome from "../components/AddPostHome";
+import { Separator } from "@/components/ui/separator";
+import LastActivity from "../components/LastActivity";
+import FilterHome from "../components/FilterHome";
 
 function Home() {
   return (
     <main className="w-full h-screen flex">
-      <div className="w-3/4 h-full flex flex-col p-4 ">
+      <div className="w-3/5 h-full flex flex-col p-4 ">
         <div className="flex w-full items-center flex-col gap-4 h-full overflow-y-auto">
-          <SearchComponent />
           <div className="w-full">
-            <div className="flex justify-end items-center gap-4 py-4">
+            <AddPostHome />
+          </div>
+          {/* <SearchComponent /> */}
+          <Separator />
+          <div className="w-full">
+            <div className="flex justify-end items-center gap-4 px-4">
               {/* icone filtres */}
-              <SlidersHorizontal className="h-6 w-6" />
+              <FilterHome />
             </div>
             <PostList />
           </div>
         </div>
       </div>
-      <div className="w-1/4 h-full flex flex-col  ">
+      <Separator orientation="vertical" />
+      <div className="w-2/5 h-full flex flex-col">
+        <SearchComponent />
+        <LastActivity />
         <UserList />
       </div>
     </main>

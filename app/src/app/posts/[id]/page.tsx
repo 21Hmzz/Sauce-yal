@@ -9,6 +9,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import AddComment from "@/app/components/AddComment";
+import { Separator } from "@/components/ui/separator";
 
 function PostPage({ params }: { params: { id: string } }) {
   const queryClient = useQueryClient();
@@ -60,7 +63,7 @@ function PostPage({ params }: { params: { id: string } }) {
       )}
       {PostQuery.data && (
         <div className="">
-          <Card className="p-4 bg-slate-300 rounded-lg">
+          <Card className="p-4 bg-slate-50 rounded-lg">
             <CardHeader>
               <CardTitle className="text-xl font-semibold">
                 {PostQuery.data.title}
@@ -72,6 +75,8 @@ function PostPage({ params }: { params: { id: string } }) {
               </CardDescription>
             </CardContent>
           </Card>
+          <Separator className="my-4" />
+
           <div className="mt-4">
             <h2 className="text-lg font-semibold mb-4 flex items-center gap-3">
               Commentaires <Badge>{CommentQuery.data?.length}</Badge>
@@ -100,10 +105,7 @@ function PostPage({ params }: { params: { id: string } }) {
             {CommentQuery.data && (
               <div className="grid gap-4">
                 {CommentQuery.data.map((comment: any) => (
-                  <Card
-                    key={comment.id}
-                    className="p-4 bg-slate-200 rounded-lg"
-                  >
+                  <Card key={comment.id} className="p-4 bg-slate-50 rounded-lg">
                     <CardHeader>
                       <CardTitle className="text-xs">{comment.name}</CardTitle>
                     </CardHeader>
@@ -119,6 +121,7 @@ function PostPage({ params }: { params: { id: string } }) {
           </div>
         </div>
       )}
+      <AddComment />
     </div>
   );
 }
