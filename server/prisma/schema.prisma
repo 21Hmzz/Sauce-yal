@@ -6,7 +6,7 @@
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = "file:./dev.db"
 }
 
 generator client {
@@ -15,6 +15,7 @@ generator client {
 
 model User {
   id       Int       @id @default(autoincrement())
+  username String    @unique
   email    String    @unique
   password String
   name     String
@@ -31,6 +32,9 @@ model Post {
   authorId Int
   comments Comment[]
   likes    Like[]
+  spicy Int @default(0)
+  salty Int @default(0)
+  sweet Int @default(0)
 }
 
 model Comment {

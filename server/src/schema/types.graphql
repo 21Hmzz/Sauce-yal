@@ -1,13 +1,13 @@
 type Query {
   users: [User!]!
-  user(id: Int!): User
+  user: User
   posts: [Post!]!
   post(id: Int!): Post
 }
 
 type Mutation {
-  signup(email: String!, password: String!, name: String!): AuthPayload
-  login(email: String!, password: String!): AuthPayload
+  signup(username:String!,email: String!, password: String!, name: String!): AuthPayload
+  login(username: String!, password: String!): AuthPayload
   createPost(title: String!, content: String!): Post!
   createComment(postId: Int!, content: String!): Comment!
   likePost(postId: Int!): Like!
@@ -15,6 +15,7 @@ type Mutation {
 
 type User {
   id: Int!
+  username: String!
   email: String!
   password: String!
   name: String!
@@ -30,6 +31,9 @@ type Post {
   author: User!
   comments: [Comment!]!
   likes: [Like!]!
+  spicy:Int!
+  salty:Int!
+  sweet:Int!
 }
 
 type Comment {

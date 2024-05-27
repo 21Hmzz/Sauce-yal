@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { LoginForm } from "./login.form";
 
 export default function LoginPage() {
   return (
@@ -16,35 +17,7 @@ export default function LoginPage() {
               Connectez-vous à votre compte pour continuer
             </p>
           </div>
-          <div className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="username">Nom d'utilisateur</Label>
-              <Input
-                id="username"
-                type="text"
-                placeholder="john.doe"
-                required
-              />
-            </div>
-            <div className="grid gap-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Mot de passe</Label>
-                <Link
-                  href="/forgot-password"
-                  className="ml-auto inline-block text-sm underline"
-                >
-                  Mot de passe oublié?
-                </Link>
-              </div>
-              <Input id="password" type="password" required />
-            </div>
-            <Button type="submit" className="w-full">
-              Connexion
-            </Button>
-            <Button variant="outline" className="w-full">
-              Continuer avec Google
-            </Button>
-          </div>
+          <LoginForm />
           <div className="mt-4 text-center text-sm">
             <span>Vous n'avez pas de compte?</span>{" "}
             <Link href="#" className="underline">

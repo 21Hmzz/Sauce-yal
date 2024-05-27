@@ -9,9 +9,29 @@ import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
+import { useQuery, gql } from "@apollo/client";
+import { getCookie } from "cookies-next";
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function Sidebar({ className }: SidebarProps) {
+  const { data, loading, error } = useQuery(
+    gql`
+      query Query {
+        user {
+          username
+          name
+          id
+        }
+      }
+    `,
+    {
+      context: {
+        headers: {
+          authorization: `Bearer ${getCookie("token")}`,
+        },
+      },
+    }
+  );
   const pathname = usePathname();
   return (
     <div className={cn("pb-12 relative", className)}>
@@ -32,8 +52,12 @@ export function Sidebar({ className }: SidebarProps) {
                 <AvatarFallback>JD</AvatarFallback>
               </Avatar>
               <div className="ml-2">
-                <h2 className="text-lg font-semibold">John Doe</h2>
-                <p className="text-muted-foreground">Développeur web</p>
+                <h2 className="text-lg font-semibold">
+                  {loading ? "Chargement..." : data.user.name}
+                </h2>
+                <p className="text-muted-foreground">
+                  {loading ? "Chargement..." : data.user.username}
+                </p>
               </div>
             </div>
             <Button

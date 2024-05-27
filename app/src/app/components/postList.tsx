@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useRouter } from "next/navigation";
@@ -12,6 +11,8 @@ import {
 } from "@/components/ui/card";
 import { Flame, Lollipop, Popcorn } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { gql, useQuery } from "@apollo/client";
+import { getCookie } from "cookies-next";
 
 function randomNumber(min: number, max: number) {
   return Math.random() * (max - min) + min;
@@ -19,32 +20,39 @@ function randomNumber(min: number, max: number) {
 
 function PostList({ selected }: { selected: string }) {
   const router = useRouter();
-  const queryClient = useQueryClient();
-  const PostQuery = useQuery({
-    queryKey: ["post"],
-    queryFn: async () => {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
-      return response.json();
-    },
-  });
-  const UserPostQuery = useQuery({
-    queryKey: ["userPost"],
-    queryFn: async () => {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/users"
-      );
-      return response.json();
-    },
-  });
+  const { data, loading, error } = useQuery(
+    gql`
+      query Posts {
+        posts {
+          id
+          title
+          content
+          author {
+            username
+          }
+          likes {
+            id
+          }
+          spicy
+          salty
+          sweet
+        }
+      }
+    `,
+    {
+      context: {
+        headers: {
+          authorization: `Bearer ${getCookie("token")}`,
+        },
+      },
+    }
+  );
 
-  if (PostQuery.error) {
-    console.error(PostQuery.error);
-  }
+  console.log(data);
+
   return (
     <div className={"w-full overflow-y-auto py-2"}>
-      {PostQuery.isLoading && (
+      {/* {PostQuery.isLoading && (
         <div role="status">
           <svg
             aria-hidden="true"
@@ -149,7 +157,7 @@ function PostList({ selected }: { selected: string }) {
             </Card>
           ))}
         </div>
-      )}
+      )} */}
     </div>
   );
 }

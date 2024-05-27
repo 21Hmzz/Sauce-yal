@@ -64,8 +64,8 @@ export type MutationLikePostArgs = {
 
 
 export type MutationLoginArgs = {
-  email: Scalars['String']['input'];
   password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
 };
 
 
@@ -73,6 +73,7 @@ export type MutationSignupArgs = {
   email: Scalars['String']['input'];
   name: Scalars['String']['input'];
   password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
 };
 
 export type Post = {
@@ -82,6 +83,9 @@ export type Post = {
   content: Scalars['String']['output'];
   id: Scalars['Int']['output'];
   likes: Array<Like>;
+  salty: Scalars['Int']['output'];
+  spicy: Scalars['Int']['output'];
+  sweet: Scalars['Int']['output'];
   title: Scalars['String']['output'];
 };
 
@@ -98,11 +102,6 @@ export type QueryPostArgs = {
   id: Scalars['Int']['input'];
 };
 
-
-export type QueryUserArgs = {
-  id: Scalars['Int']['input'];
-};
-
 export type User = {
   __typename?: 'User';
   comments: Array<Comment>;
@@ -112,4 +111,5 @@ export type User = {
   name: Scalars['String']['output'];
   password: Scalars['String']['output'];
   posts: Array<Post>;
+  username: Scalars['String']['output'];
 };

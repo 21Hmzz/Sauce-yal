@@ -8,9 +8,31 @@ import AddPostHome from "../components/AddPostHome";
 import { Separator } from "@/components/ui/separator";
 import LastActivity from "../components/LastActivity";
 import FilterHome from "../components/FilterHome";
+import { gql, useQuery } from "@apollo/client";
+import { headers } from "next/headers";
+import { getCookie } from "cookies-next";
 
 function Home() {
   const [selected, setSelected] = React.useState<string>("");
+  const { data, loading, error } = useQuery(
+    gql`
+      query Query {
+        user {
+          username
+          name
+          id
+        }
+      }
+    `,
+    {
+      context: {
+        headers: {
+          authorization: `Bearer ${getCookie("token")}`,
+        },
+      },
+    }
+  );
+
   return (
     <main className="w-full h-screen flex">
       <div className="w-3/5 h-full flex flex-col p-4">
